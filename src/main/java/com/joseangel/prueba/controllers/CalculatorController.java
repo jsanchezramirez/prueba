@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.joseangel.prueba.exceptions.InvalidInputException;
 import com.joseangel.prueba.services.CalcServiceImpl;
 
 @CrossOrigin
@@ -27,7 +28,12 @@ public class CalculatorController {
 	
 	@GetMapping("/suma")
 	public Double reqSuma(@PathParam(value = "val1") String val1, @PathParam(value = "val2") String val2) {
-		return this.calcService.suma(val1, val2);
+		try{
+			return this.calcService.suma(val1, val2);
+		}
+		catch(NumberFormatException e) {
+			throw new InvalidInputException("Non-numeric or invalid input parameter");
+		}
 	}
 
 	@GetMapping("/resta")
