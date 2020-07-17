@@ -11,10 +11,13 @@ public class CalcServiceImpl implements CalcService {
 
 	@Override
 	public Double suma(String ... valores) throws NumberFormatException {
-		
+		return this.functionSum(valores);
+	}
+	
+	private Double functionSum(String... valores) {
 		List<Double> nums=Arrays.asList(valores).stream().map(op -> 
-			op==null?0.0:Double.parseDouble(op)).collect(Collectors.toList());
-		
+		op==null?0.0:Double.parseDouble(op)).collect(Collectors.toList());
+	
 		return nums.stream().reduce(0.0, (a,b) -> a+b);
 	}
 
