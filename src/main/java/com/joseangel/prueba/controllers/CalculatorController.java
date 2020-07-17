@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.joseangel.prueba.exceptions.InvalidInputException;
 import com.joseangel.prueba.services.CalcServiceImpl;
+import com.joseangel.prueba.util.EventsUtils;
 
 @CrossOrigin
 @RestController
@@ -22,16 +23,24 @@ public class CalculatorController {
 	
 	@GetMapping("/inValores/{val1}/{val2}")
 	public Double inValores(@PathVariable String val1, @PathVariable String val2) {
-		System.out.println(val1+"---"+val2);
-		return 2.12345;
+		EventsUtils.eventComing(CalculatorController.class, "inValores", val1, val2);
+		
+		String result=val1+"---"+val2;
+		
+		EventsUtils.eventOuting(CalculatorController.class, "inValores", result);
+		
+		return 2.123456;
 	}
 	
 	@GetMapping("/suma")
 	public Double reqSuma(@PathParam(value = "val1") String val1, @PathParam(value = "val2") String val2) {
+		EventsUtils.eventComing(CalculatorController.class, "reqSuma", val1, val2);
+		
 		try{
 			return this.calcService.suma(val1, val2);
 		}
 		catch(NumberFormatException e) {
+			EventsUtils.traceException(e);
 			throw new InvalidInputException("Non-numeric or invalid input parameter");
 		}
 	}
