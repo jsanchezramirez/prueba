@@ -4,4 +4,6 @@ public interface CalcService {
 
 	public Double suma(String... args) throws NumberFormatException;
 	
+	public Double resta(String... args) throws NumberFormatException;
+	
 }

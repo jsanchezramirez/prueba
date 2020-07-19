@@ -2,6 +2,7 @@ package com.joseangel.prueba.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import io.corp.calculator.TracerImpl;
 
@@ -39,5 +40,10 @@ public class EventsUtils {
 	public static void traceException(RuntimeException e) {
 		TracerImpl tracer=new TracerImpl();
 		tracer.trace(e);
+	}
+	
+	public static void eventOperationDone(String operacion, Double resultado, List<Double> parametros) {
+		TracerImpl tracer=new TracerImpl();
+		tracer.trace("DONE: "+operacion+" - RESULTADO: "+resultado+" - ARGUMENTOS: "+parametros);
 	}
 }

@@ -13,14 +13,22 @@ import java.net.URL;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import com.joseangel.prueba.components.CalculadorCore;
 import com.joseangel.prueba.controllers.CalculatorController;
 import com.joseangel.prueba.controllers.Controller;
 import com.joseangel.prueba.services.CalcServiceImpl;
 
 
+@SpringBootTest
 public class PruebaApplicationTests {
 
+	@Autowired
+	private CalcServiceImpl calcService;
+	
+	
 	@Test
     @DisplayName("Prueba Status Service")
 	@Disabled("este test no se ejecuta")
@@ -72,7 +80,7 @@ public class PruebaApplicationTests {
 	void testSumaEntradaExceptionNumber() {
 		CalcServiceImpl c1=new CalcServiceImpl();
 		assertThrows(NumberFormatException.class, () -> {
-			c1.suma("ppp", "1.2");
+			calcService.suma("ppp", "1.2");
 		});
 	}
 	
@@ -80,8 +88,25 @@ public class PruebaApplicationTests {
 	@DisplayName("Prueba Suma Tipo Resultado")
 	void testSumaSalida() {
 		CalcServiceImpl c1=new CalcServiceImpl();
-		Double resultado=c1.suma("1.5","1.0");
+		Double resultado=calcService.suma("1.5","1.0");
 		assertEquals(resultado.doubleValue(), 2.5d);
+	}
+	
+	@Test
+	@DisplayName("Prueba Resta Parametros Entrada Exception Number")
+	void testRestaEntradaExceptionNumber() {
+		CalcServiceImpl c1=new CalcServiceImpl();
+		assertThrows(NumberFormatException.class, () -> {
+			calcService.resta("ppp", "17.0");
+		});
+	}
+	
+	@Test
+	@DisplayName("Prueba Resta Tipo Resultado")
+	void testRestaSalida() {
+		CalcServiceImpl c1=new CalcServiceImpl();
+		Double resultado=calcService.resta("25000.0","17800.80");
+		assertEquals(resultado.doubleValue(), 25000d-17800.80d);
 	}
 
 }

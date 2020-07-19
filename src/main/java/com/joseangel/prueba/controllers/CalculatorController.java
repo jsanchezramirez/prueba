@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.joseangel.prueba.exceptions.InvalidInputException;
+import com.joseangel.prueba.exceptions.NotImplementationYet;
 import com.joseangel.prueba.services.CalcServiceImpl;
 import com.joseangel.prueba.util.EventsUtils;
 
@@ -47,25 +48,32 @@ public class CalculatorController {
 
 	@GetMapping("/resta")
 	public Double reqResta(@PathParam(value = "val1") String val1, @PathParam(value = "val2") String val2) {
-		//return this.calcService.resta(val1,val2);
-		return null;
+		EventsUtils.eventComing(CalculatorController.class, "reqSuma", val1, val2);
+		
+		try{
+			return this.calcService.resta(val1, val2);
+		}
+		catch(NumberFormatException e) {
+			EventsUtils.traceException(e);
+			throw new InvalidInputException("Non-numeric or invalid input parameter");
+		}
 	}
 	
 	@GetMapping("/multiplicacion")
 	public Double reqMultiplicacion(@PathParam(value = "val1") String val1, @PathParam(value = "val2") String val2) {
 		//return this.calcService.multiplicacion(val1,val2);
-		return null;
+		throw new NotImplementationYet("/multiplicacion - no implementado");
 	}
 	
 	@GetMapping("/division")
 	public Double reqDivision(@PathParam(value = "val1") String val1, @PathParam(value = "val2") String val2) {
 		//return this.calcService.division(val1,val2);
-		return null;
+		throw new NotImplementationYet("/division - no implementado");
 	}
 	@GetMapping("/modulo")
 	public Double reqModulo(@PathParam(value = "val1") String val1, @PathParam(value = "val2") String val2) {
 		//return this.calcService.modulo(val1,val2);
-		return null;
+		throw new NotImplementationYet("/modulo - no implementado");
 	}
 	
 }
