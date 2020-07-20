@@ -1,5 +1,6 @@
 package com.joseangel.prueba.components;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import com.joseangel.prueba.util.EventsUtils;
 @Component
 public class CalculadorCore {
 
-	public Double solicitudOperacion(Operators operador, List<Double> numeros) {
+	public BigDecimal solicitudOperacion(Operators operador, List<BigDecimal> numeros) {
 		
 		switch(operador) {
 			case SUMA:
@@ -18,29 +19,30 @@ public class CalculadorCore {
 			case RESTA:
 				return this.functionRes(numeros);
 			default:
-				return 0.0;
+				return new BigDecimal(0.0);
 		}
 		
 	}
 	
 	
-	private Double functionSum(List<Double> nums) {
-		Double resultado=nums.stream().reduce(0.0, (a,b) -> a+b);
+	private BigDecimal functionSum(List<BigDecimal> nums) {
+		BigDecimal resultado=nums.stream().reduce(new BigDecimal(0.0), (a,b) -> a.add(b));
 		
 		EventsUtils.eventOperationDone("suma", resultado, nums);
 		
 		return resultado;
 	}
 	
-	private Double functionRes(List<Double> nums) {
-		Double resultado=0.0;
+	private BigDecimal functionRes(List<BigDecimal> nums) {
+		//BigDecimal resultado=nums.stream().(new BigDecimal(0.0), (BigDecimal a, BigDecimal b) -> a.subtract(b));
+		BigDecimal resultado=new BigDecimal(0.0);
 	
 		for(int i=0; i<nums.size(); i++) {
 			if(i==0) {
 				resultado=nums.get(i);
 			}
 			else {
-				resultado-=nums.get(i);
+				resultado=resultado.subtract(nums.get(i));
 			}
 		}
 		

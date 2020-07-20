@@ -1,9 +1,11 @@
 package com.joseangel.prueba.services;
 
+import java.math.BigDecimal;
+
 public interface CalcService {
 
-	public Double suma(String... args) throws NumberFormatException;
+	public BigDecimal suma(BigDecimal... args);
 	
-	public Double resta(String... args) throws NumberFormatException;
+	public BigDecimal resta(BigDecimal... args);
 	
 }

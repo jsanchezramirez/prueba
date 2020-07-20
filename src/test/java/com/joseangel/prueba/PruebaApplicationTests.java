@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.joseangel.prueba.components.CalculadorCore;
 import com.joseangel.prueba.controllers.CalculatorController;
 import com.joseangel.prueba.controllers.Controller;
 import com.joseangel.prueba.services.CalcServiceImpl;
@@ -71,42 +71,38 @@ public class PruebaApplicationTests {
 	@DisplayName("Prueba Parametros Resultado")
 	void testParametros() {
 		CalculatorController c1=new CalculatorController();
-		assertNotEquals(c1.inValores("ppp", "12"), "");
-		assertEquals(c1.inValores("1.2", "4,77").doubleValue(), 2.123456);
+		assertNotEquals(c1.inValores(new BigDecimal(0.5), new BigDecimal(2.66)), "");
+		assertEquals(c1.inValores(new BigDecimal(1.2), new BigDecimal(4.77)).doubleValue(), 2.123456d);
 	}
 	
 	@Test
 	@DisplayName("Prueba Suma Parametros Entrada Exception Number")
 	void testSumaEntradaExceptionNumber() {
-		CalcServiceImpl c1=new CalcServiceImpl();
 		assertThrows(NumberFormatException.class, () -> {
-			calcService.suma("ppp", "1.2");
+			calcService.suma(new BigDecimal(""), new BigDecimal(""));
 		});
 	}
 	
 	@Test
 	@DisplayName("Prueba Suma Tipo Resultado")
 	void testSumaSalida() {
-		CalcServiceImpl c1=new CalcServiceImpl();
-		Double resultado=calcService.suma("1.5","1.0");
-		assertEquals(resultado.doubleValue(), 2.5d);
+		BigDecimal resultado=calcService.suma(new BigDecimal(1.5),new BigDecimal(1.0));
+		assertEquals(resultado, new BigDecimal(2.5));
 	}
 	
 	@Test
 	@DisplayName("Prueba Resta Parametros Entrada Exception Number")
 	void testRestaEntradaExceptionNumber() {
-		CalcServiceImpl c1=new CalcServiceImpl();
 		assertThrows(NumberFormatException.class, () -> {
-			calcService.resta("ppp", "17.0");
+			calcService.resta(new BigDecimal("ppp"), new BigDecimal(17.0));
 		});
 	}
 	
 	@Test
 	@DisplayName("Prueba Resta Tipo Resultado")
 	void testRestaSalida() {
-		CalcServiceImpl c1=new CalcServiceImpl();
-		Double resultado=calcService.resta("25000.0","17800.80");
-		assertEquals(resultado.doubleValue(), 25000d-17800.80d);
+		BigDecimal resultado=calcService.resta(new BigDecimal(25000.50),new BigDecimal(3000.75));
+		assertEquals(resultado, new BigDecimal(21999.75));
 	}
 
 }

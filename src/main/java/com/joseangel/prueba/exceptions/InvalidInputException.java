@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class InvalidInputException extends RuntimeException {
 
 	public static final long serialVersionUID = 1L;

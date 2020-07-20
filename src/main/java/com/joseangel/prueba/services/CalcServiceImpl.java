@@ -1,5 +1,6 @@
 package com.joseangel.prueba.services;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,19 +18,20 @@ public class CalcServiceImpl implements CalcService {
 	@Autowired
 	CalculadorCore calculador;
 	
+	//Con la expresion lambda creo el list de BigDecimal excluyendo valores nulos
 	@Override
-	public Double suma(String ... valores) throws NumberFormatException {
-		List<Double> nums=Arrays.asList(valores).stream().map(op -> 
-		op==null?0.0:Double.parseDouble(op)).collect(Collectors.toList());
+	public BigDecimal suma(BigDecimal ... valores) {
+		List<BigDecimal> nums=Arrays.asList(valores).stream().map(op -> 
+		op==null?new BigDecimal(0.0):op).collect(Collectors.toList());
 		return this.calculador.solicitudOperacion(Operators.SUMA, nums);
 	}
 	
 	
-
+	//Con la expresion lambda creo el list de BigDecimal excluyendo valores nulos
 	@Override
-	public Double resta(String... valores) throws NumberFormatException {
-		List<Double> nums=Arrays.asList(valores).stream().map(op -> 
-		op==null?0.0:Double.parseDouble(op)).collect(Collectors.toList());
+	public BigDecimal resta(BigDecimal... valores) {
+		List<BigDecimal> nums=Arrays.asList(valores).stream().map(op -> 
+		op==null?new BigDecimal(0.0):op).collect(Collectors.toList());
 		return this.calculador.solicitudOperacion(Operators.RESTA, nums);
 	}
 

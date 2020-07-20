@@ -12,7 +12,7 @@ import com.joseangel.prueba.util.EventsUtils;
 @RequestMapping("/api/test")
 public class Controller {
 
-	
+	//Metodo que recibe la petición de testeo principal. Simplemente recibe la llamada y devuelve la cadena "Hola mundo"
 	@GetMapping("")
 	public String getTest(){
 		EventsUtils.eventComing(Controller.class);
