@@ -34,7 +34,6 @@ public class CalculadorCore {
 	}
 	
 	private BigDecimal functionRes(List<BigDecimal> nums) {
-		//BigDecimal resultado=nums.stream().(new BigDecimal(0.0), (BigDecimal a, BigDecimal b) -> a.subtract(b));
 		BigDecimal resultado=new BigDecimal(0.0);
 	
 		for(int i=0; i<nums.size(); i++) {

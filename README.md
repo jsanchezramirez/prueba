@@ -32,7 +32,8 @@ requerimientos deseados.
 
 12. Creación del Service CalcServiceImpl que sera utilizado por la capa superior.
 
-13. Creo los métodos de suma y resta en el servicio. Aquí, me encargo de convertir a valores numéricos los parametros de llegada, haciendo uso de expresiones lambda de Java8. 
+13. Creo los métodos de suma y resta en el servicio. Aquí, me encargo de verificar los parametros de llegada, en este caso comprobando nulos 
+y al mismo tiempo formando el List para hacer la solicitud de operación, haciendo uso de expresiones lambda de Java8. 
 Para este caso, y pensando en que en un futuro podremos tener más de dos valores, se implementa haciendo uso de expresiones lambda de Java8 de cara ha hacerlo lo más generico 
 posible y además evitando extensas comprobaciones de multiples lineas de codigo.
 
@@ -43,10 +44,11 @@ futuros, de que pueda haber no sólo dos valores a calcular sino más, este mét
 
 15. El @Component CalculadorCore, haciendo uso de métodos privados, se encarga de realizar las operaciones de suma y resta.
 
-16. Excepción propia. Para cuando se dé el tipo de excepción de valor no nomérico, así como alguna de la línea de parámetro de entrada invalido, 
+16. Excepción propia. Para cuando se dé el tipo de excepción de valor no numérico, así como alguna de la línea de parámetro de entrada invalido, 
 me creo la excepción InvalidInputException. Si lo analizamos desde un punto de vista de robustez, creando nuestras propias excepciones, dotamos al controlador de un manejo y contemplación 
 de excepciones muy interesante, sobre todo por la funcionalidad @ResponseStatus que nos ofrece el framework, que hace las respuestas a modo de error mucho más legibles y manejables 
-para el cliente del microservicio.
+para el cliente del microservicio. (Actualmente no hago uso de la misma, simplemente dejo en manos del framework que lance el error http 400 en caso de llegada de parámetros invalidos 
+al controlador).
 
 17. Además me creo la excepcion propia NotImplementationYet, para usarla en el controlador a modo de informar de que algunas peticiones no están implementadas.
 
